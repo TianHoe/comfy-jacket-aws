@@ -1,0 +1,73 @@
+<!-- Template for all the pages -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banana Florist | User</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn/com/bootstrap/4.3.1/css/bootstrap/min/css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <style>
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            display: flex; 
+            flex-direction: column;
+        }
+
+        /* navbar color */
+        .navbar-custom {
+            padding-left: 100px;
+            padding-right: 100px;
+            height: 120px;
+        }
+
+        .navbar-brand {
+          width: 276px;
+        }
+
+        /* footer */
+        footer {
+          width: 100%; 
+          background-color: #787D12;
+          /* position: fixed;
+          bottom: 0; */
+          flex-shrink: 0;
+          margin-top: 50px;
+        }
+
+        /* input field */
+        #flower_qty {
+            border: 0;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
+
+        #flower_qty_disabled {
+            width: 67.8px;
+            border: 0;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
+
+        #flower_qty_disabled:hover {
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <div style="flex: 1 0 auto;">
+        {% block content %}
+        <!-- replace me  -->
+        {% endblock %}
+    </div>
+    
+
+    {% include 'footer.html' %}
+</body>
+</html>

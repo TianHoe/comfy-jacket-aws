@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+    <div class="container mt-4">
+        <a href="{% url 'showBouquets' %}" class="btn btn-secondary shadow-none">Back</a>
+    </div>
+
+    <div class="container shadow mt-4" style="background-color: whitesmoke;">
+
+        <div class="row my-4 p-4">
+            
+            <div class="col text-center">
+                <img src="/media/{{ eachBouquet.image }}" class="img-fluid img-thumbnail shadow-sm" alt="..." style="height: 25rem; width: 25rem;">    
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card-body">
+                    <p class="card-title m-1">Flower Name : {{ eachBouquet.name }}</p>
+                    <p class="card-text m-1">Price : RM {{ eachBouquet.price }}</p>
+                    <p class="card-text m-1">Category : {{ eachBouquet.category }}</p>
+                    <p class="card-text m-1"> Description : {{ eachBouquet.desc | safe }}</p>
+                    <p class="card-text m-1">{{ eachBouquet.time_created }}</p>
+                    
+                    <!-- Button trigger modal -->
+                    <!-- <button type="button" class="btn btn-danger mt-1 shadow-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Discard
+                    </button> -->
+                    
+                    <!-- Modal -->
+                    <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title mt-4 position-relative start-50 translate-middle" id="staticBackdropLabel">Discard Bouquet</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Do you want to discard {{ eachBouquet.name }} ?</p>
+                                    <sup class="text-danger">Notes : Data will be removed permanently.</sup>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <a href="{% url 'deletebouquet' eachBouquet.id %}" class="btn btn-danger">Discard</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <a href="{% url 'deletebouquet' eachBouquet.id %}" class="btn btn-danger">Discard</a>
+                    <a href="{% url 'updatebouquet' eachBouquet.id %}" class="btn btn-primary mt-1 shadow-none">Update</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

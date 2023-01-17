@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 class="mt-4 text-center">Add Category</h2><hr class="mb-5 w-50 position-relative start-50 translate-middle">
+
+    <div class="container m-5 position-absolute start-50 translate-middle">
+        
+        <form action="" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %} 
+            {{ catform.as_p }}
+            
+            <a href="{% url 'showBouquets' %}" class="btn btn-secondary align-end" style="width: 120px;">Back</a>
+            <input type="submit" name="Submit" value="Add Category" class="btn btn-secondary" style="width: 120px;">
+        </form>
+        
+    </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block js %}
+    <script type="text/javascript" src="{% static '/js/image.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <h2 class="mt-4 text-center">Add Bouquets</h2><hr class="mb-2 w-50 position-relative start-50 translate-middle">
+
+    <div class="container mb-3">
+        
+        <form method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.non_field_errors }}
+            <div class="fieldWrapper form-group">
+                {{ form.name.errors }}
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div class="fieldWrapper form-group">
+                {{ form.price.errors }}
+                {{ form.price.label_tag }}
+                {{ form.price }}
+            </div>
+            <div class="fieldWrapper form-group">
+                {{ form.stock.errors }}
+                {{ form.stock.label_tag }}
+                {{ form.stock }}
+            </div>
+            <div class="fieldWrapper form-group">
+                {{ form.category.errors }}
+                {{ form.category.label_tag }}
+                {{ form.category }}
+            </div>
+            <div class="fieldWrapper form-group">
+                {{ form.desc.errors }}
+                <label for="{{ form.desc.id_for_label }}">Description: </label><br>
+                {{ form.desc}}
+            </div>
+            <div class="fieldWrapper form-group" style="display: none;">
+                {{ form.image.errors }}
+                {{ form.image.label_tag }}
+                {{ form.image }}
+            </div>
+            <div class="fieldWrapper form-group">
+                <label>Image:</label>
+                {% if image %}
+                    <label for="img" class="btn btn-info" id="uploadBtn" style="display: none;">Upload an image</label>
+                    <label id="removeBtn" onclick="removeImg();" class="btn btn-dark">Remove image</label><br>
+                    <img id="preview_img" class="img-thumbnail" src="{{ image.url }}" style="height: 254px;">
+                {% else %}
+                    <label for="img" class="btn btn-info" id="uploadBtn">Upload an image</label>
+                    <label id="removeBtn" onclick="removeImg();" class="btn btn-dark" style="display: none;">Remove image</label><br>
+                    <img id="preview_img" class="img-thumbnail" src="" style="display: none; height: 254px;">
+                {% endif %}
+                {{ form.desc.errors }}
+                {{ form.remove }}
+            </div>
+            <a href="{% url 'showBouquets' %}" class="btn btn-secondary" style="width: 100px;">Back</a>
+            <input type="submit" name="Submit" class="btn btn-secondary" style="width: 100px;">
+        </form>
+        
+    </div>
+{% endblock %}

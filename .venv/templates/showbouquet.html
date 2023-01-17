@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4 text-center"><b>Inventory</b></h2><hr class="mb-5">
+    
+    <div class="row">
+        <div class="col py-4 px-4 text-center shadow bg-body rounded h-25">
+            <div class="row">
+                <a class="btn btn-warning shadow-sm" href="{% url 'addbouquet' %}">Add Jacket</a>
+                <a class="btn btn-warning shadow-sm my-3" href="{% url 'addcategory' %}">Add Category</a><hr>
+                <p class="mt-1"><b>Categories</b></p>
+                <div class="btn-group-vertical">
+                    <a id="catlist" href="{% url 'showBouquets' %}" class="m-1 btn btn-outline-light">All</a>
+                    {% for category in categories %}
+                    <div class="position-relative w-100">
+                        <a id="catlist" class="m-1 btn btn-outline-light w-100" href="{% url 'showBouquets' %}?category={{ category.category }}">
+                            {{ category.category }}                                    
+                            
+                        </a><a href="{% url 'deletecategory' category.id %}" id="closebtn" class="btn-close position-absolute end-0 bottom-50 me-1" aria-label="Close"></a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% load static %}
+        </div>
+        
+        <div class="col-md-10 ms-2 pe-3 py-3 shadow bg-body rounded">
+            <div class="row">
+            {% if bouquets %}
+                {% for bouquet in bouquets %}
+                
+                <div class="col-md-3">
+                    <div class="card my-2 shadow-sm bg-body rounded" style="width: 16rem;">
+                        <img src="{{ bouquet.image.url }}" style="height:254px;" class="card-img-top" alt="{{ bouquet.image.url }}">
+                        <div class="card-body">
+                            <h5 class="card-title m-1 text-center">{{ bouquet.name }}</h5>
+                            <h6 class="card-subtitle m-1 text-center">RM {{ bouquet.price }}</h6>
+                            {% if bouquet.stock > 0 %}
+                                <h6 class="card-subtitle m-1 text-center">{{ bouquet.stock }} stock(s) left</h6>
+                            {% else %}
+                                <h6 class="card-subtitle m-1 text-center text-danger">No stock left</h6>
+                            {% endif %}
+                                <hr>
+                            <sub>{{ bouquet.category }}</sub>
+                            <p class="card-text mt-1">{{ bouquet.time_created }}</p>
+                            <a href="{% url 'bouquet' bouquet.pk %}" class="btn btn-primary mt-1 w-100">Details</a>
+                        </div>
+                    </div>
+                </div>
+            
+                {% endfor %}
+            {% else %}
+            <div class="text-center">
+                <p class="mt-5">The jacket is not found.</p>
+                <img src="{% static 'images/CRYING_GIF.gif' %}" style="height:12rem;width:16rem" class="align-middle">
+            </div>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+   
+<!-- Pagination -->
+<div class="row m-5">
+    <div class="col-md-12 m-3">
+        <!-- For Link to Previous Page -->
+        {% if bouquets.has_other_pages %}
+
+        <ul class="pagination justify-content-center">
+                
+            {% if bouquets.has_previous %}
+
+            <li class="page-item shadow"><a href="?page={{ bouquets.previous_page_number }}" class="page-link">Previous</a></li>
+
+            {% else %}
+
+            <li class="page-item disabled shadow"><a href="?page=1" class="page-link">Previous</a></li>
+
+            {% endif %}
+
+            <!-- Pages Range -->
+            {% for i in bouquets.paginator.page_range %}
+
+                {% if bouquets.number == i %}
+
+                <li class="page-item active shadow"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+
+                {% else %}
+
+                <li class="page-item shadow"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+
+                {% endif %}
+
+            {% endfor %}
+
+            <!-- For Link to Next Page -->
+            {% if bouquets.has_next %}
+
+            <li class="page-item shadow"><a href="?page={{ bouquets.next_page_number }}" class="page-link">Next</a></li>
+
+            {% else %}
+
+            <li class="page-item disabled shadow"><a href="?page={{ bouquets.paginator.number_pages }}" class="page-link">Next</a></li>
+
+            {% endif %}
+
+        </ul>
+
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

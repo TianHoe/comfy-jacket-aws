@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mt-4 text-center"><b>Orders Management</b></h2><hr class="mb-5">
+
+    <table class="table shadow" style="background-color: whitesmoke;border-collapse: separate;">
+        <thead>
+            <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Product</th>
+                <th scope="col">Purchaser</th>
+                <th scope="col">Total (RM)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if orders %}
+            {% for order in orders %}
+            <tr>
+                <th scope="row">{{ order.id }}</th>
+                <td>{{ order.product }}</td>
+                <td>{{ order.user_id }}</td>
+                <td>{{ order.subtotal }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <p>No orders...</p>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+<div class="row m-4">
+    <div class="col-md-12 m-3">
+        <!-- For Link to Previous Page -->
+        {% if orders.has_other_pages %}
+
+        <ul class="pagination justify-content-center">
+                
+            {% if orders.has_previous %}
+
+            <li class="page-item"><a href="?page={{ orders.previous_page_number }}" class="page-link">Previous</a></li>
+
+            {% else %}
+
+            <li class="page-item disabled"><a href="?page=1" class="page-link">Previous</a></li>
+
+            {% endif %}
+
+            <!-- Pages Range -->
+            {% for i in orders.paginator.page_range %}
+
+                {% if orders.number == i %}
+
+                <li class="page-item active"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+
+                {% else %}
+
+                <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+
+                {% endif %}
+
+            {% endfor %}
+
+            <!-- For Link to Next Page -->
+            {% if orders.has_next %}
+
+            <li class="page-item"><a href="?page={{ orders.next_page_number }}" class="page-link">Next</a></li>
+
+            {% else %}
+
+            <li class="page-item disabled"><a href="?page={{ orders.paginator.number_pages }}" class="page-link">Next</a></li>
+            {% endif %}
+
+        </ul>
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

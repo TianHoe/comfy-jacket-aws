@@ -1,0 +1,80 @@
+{% extends 'main.html' %}
+
+{% block content %}
+ {% load static %}
+ <!-- Tian Hoe - Add JavaScript -->
+ <script type="text/javascript" src="{% static '/js/profile_image.js' %}"></script>
+<br>
+<div class="shadow p-4 mb-5 bg-body rounded" style="margin: 20px 100px;">
+    <h2><p class="fw-bold">Profile</p></h2>
+    <form method="post" enctype="multipart/form-data">
+    <div class="row">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ profile_form.media }}
+        <div class="col-4">
+            <div class="fieldWrapper form-group" style="display:none">
+                {{ profile_form.profile_img.errors }}
+                {{ profile_form.profile_img.label_tag }}
+                {{ profile_form.profile_img }}
+            </div>
+            <div class="fieldWrapper form-group">
+                {% if img %}
+                    <img id="preview_img" class="rounded-circle" src="{{ img.url }}" style="max-width: 350px; max-height: 350px;">
+                    <div style="display: grid!important;"><br>
+                            <label id="removeBtn" onclick="removeImg();" class="btn btn-dark">Remove image</label>
+                            <label for="img" class="btn btn-info" id="uploadBtn" style="display: none;">Upload an image</label>
+                    </div>
+                {% else %}
+                    <img id="preview_img" class="rounded-circle" style="max-width: 350px; max-height: 350px;" src="{% static 'images/default_user.png' %}">
+                    <div style="display: grid!important;"><br>
+                            <label id="removeBtn" onclick="removeImg();" class="btn btn-dark" style="display: none;">Remove image</label>
+                            <label for="img" class="btn btn-info" id="uploadBtn">Upload an image</label>
+                    </div>
+                {% endif %}
+                {{ form.remove }}
+            </div>
+        </div>    
+        <div class="col-8">
+            <div class="row">
+                <div class="col-6 fieldWrapper form-group">
+                    {{ form.first_name.errors }}
+                    {{ form.first_name.label_tag }}
+                    {{ form.first_name }}
+                </div>
+                <div class="col-6 fieldWrapper form-group">
+                    {{ form.last_name.errors }}
+                    {{ form.last_name.label_tag }}
+                    {{ form.last_name }}
+                </div>  
+            </div>
+            <div class="row">
+                <div class="col-12 fieldWrapper form-group">
+                    {{ form.email.errors }}
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-6 fieldWrapper form-group">
+                    {{ profile_form.number.errors }}
+                    {{ profile_form.number.label_tag }}
+                    {{ profile_form.number }}
+                </div>
+                <div class="col-6 fieldWrapper form-group">
+                    {{ profile_form.city.errors }}
+                    {{ profile_form.city.label_tag }}
+                    {{ profile_form.city }}
+                </div>  
+            </div> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input type="submit" value="Update" class="btn btn-primary">
+            <a href="../" class="btn btn-danger">Cancel</a>
+        </div>
+    </div>
+</form>    
+</div>
+{% endblock content%}

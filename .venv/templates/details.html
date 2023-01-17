@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+               <img src="{{ flower.image.url }}" class="img-fluid img-thumbnail shadow-sm" style="height: 25rem; width: 25rem;">
+        </div>
+
+        <div class="col-md-7">
+            <h1>{{ flower.name }}</h1>
+            <p>Price: RM {{ flower.price }}</p>
+            <p>Category: {{ flower.category }}</p>
+            <p>Description: {{ flower.desc | safe }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
