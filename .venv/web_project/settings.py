@@ -93,7 +93,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'comfy-database.cimsjf9v3xrq.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
+        'PORT': '8000',
     }
 }
 
