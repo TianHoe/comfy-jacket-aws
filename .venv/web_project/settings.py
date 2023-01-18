@@ -92,6 +92,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
         'USER': 'root',
         'PASSWORD': '',
+        'HOST': 'comfy-database.cimsjf9v3xrq.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
