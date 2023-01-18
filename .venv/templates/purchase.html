@@ -1,0 +1,48 @@
+<!-- extends the standard elements that should have in all the pages -->
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static %}
+
+<h1 class="text-center mt-4 mb-4">Welcome to Comfy Jacket!</h1>
+
+<div id="flower_list" class="container">
+    <form action="." class="purchase_form" method="POST"> {% csrf_token %}
+    <div class="row">
+        <div class="col-md ms-2 pe-3 py-3 shadow bg-body rounded">
+            <div class="row">
+                {% for product in flower %}
+                    <div class="col-md-3">
+                        <div class="card my-2 shadow-sm bg-body rounded" style="width: 16rem;">
+                            <img src="{{ product.image.url }}" style="height: 254px;" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title m-1 text-center">{{ product.name }}</h5>
+                                <hr>
+                                <h6 class="card-subtitle m-1 text-center">RM {{ product.price }}</h6>
+
+                                {% if product.stock > 0 %}
+                                    <h6 class="card-subtitle m-1 text-center">{{ product.stock }} stock(s) left</h6>
+                                    <div class="form-group text-center m-3">
+                                        <label for='product_qty' class="card-subtitle">Quantity:</label>
+                                        <input type="number" value="0" class="product_qty" id="flower_qty" name='qty' min="0" max="{{ product.stock }}">
+                                    </div>
+                                {% else %}
+                                    <h6 class="card-subtitle m-1 text-center font-weight-bold text-danger">Sold Out</h6>
+                                    <div class="form-group text-center m-3">
+                                        <label for='product_qty' class="card-subtitle">Quantity:</label>
+                                        <input type="number" placeholder="0" id="flower_qty_disabled" class="product_qty" readonly>
+                                    </div>
+                                {% endif %}
+                                
+                                <a href="{{ product.get_detail_url }}" class="btn btn-info mt-1 w-100" target="_self">Flower Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+{% endblock %}
